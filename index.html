@@ -1,0 +1,809 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>IDG Zodiac Master AI</title>
+    <!-- Bootstrap 5 CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Bootstrap Icons -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css">
+    <style>
+        :root {
+            --vibrant-purple: #8A2BE2;
+            --electric-pink: #FF00FF;
+            --neon-blue: #00FFFF;
+            --sunny-yellow: #FFD700;
+            --hot-pink: #FF1493;
+            --deep-blue: #1A0033;
+            --bright-teal: #00FFCC;
+            --lime-green: #00FF00;
+        }
+        
+        body {
+            background: linear-gradient(135deg, var(--deep-blue) 0%, #4B0082 50%, var(--vibrant-purple) 100%);
+            min-height: 100vh;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            color: white;
+            overflow-x: hidden;
+        }
+        
+        .vibrant-nav {
+            background: rgba(26, 0, 51, 0.95) !important;
+            backdrop-filter: blur(10px);
+            border-bottom: 2px solid var(--electric-pink);
+            box-shadow: 0 5px 15px rgba(255, 0, 255, 0.3);
+        }
+        
+        .hero-section {
+            background: 
+                radial-gradient(circle at 20% 80%, rgba(255, 0, 255, 0.3) 0%, transparent 50%),
+                radial-gradient(circle at 80% 20%, rgba(0, 255, 255, 0.3) 0%, transparent 50%),
+                radial-gradient(circle at 40% 40%, rgba(255, 215, 0, 0.2) 0%, transparent 50%);
+            padding: 120px 0 80px;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .hero-section::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 800"><rect fill="%231A0033" width="1200" height="800"/><circle fill="%2300FFFF" opacity="0.8" cx="200" cy="100" r="2"/><circle fill="%23FF00FF" opacity="0.8" cx="800" cy="150" r="1.5"/><circle fill="%23FFD700" opacity="0.8" cx="400" cy="300" r="1"/><circle fill="%2300FFCC" opacity="0.9" cx="1000" cy="400" r="2"/><circle fill="%2300FF00" opacity="0.7" cx="600" cy="500" r="1.2"/><circle fill="%23FF1493" opacity="0.8" cx="300" cy="600" r="1.8"/></svg>');
+            z-index: 0;
+        }
+        
+        .hero-content {
+            position: relative;
+            z-index: 1;
+        }
+        
+        .vibrant-card {
+            background: rgba(42, 0, 82, 0.7);
+            backdrop-filter: blur(10px);
+            border: 2px solid;
+            border-image: linear-gradient(45deg, var(--electric-pink), var(--neon-blue), var(--sunny-yellow)) 1;
+            border-radius: 20px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.4),
+                        0 0 25px rgba(255, 0, 255, 0.3),
+                        0 0 15px rgba(0, 255, 255, 0.3);
+            transition: all 0.4s ease;
+            overflow: hidden;
+        }
+        
+        .vibrant-card:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 15px 40px rgba(0, 0, 0, 0.5),
+                        0 0 35px rgba(255, 0, 255, 0.5),
+                        0 0 25px rgba(0, 255, 255, 0.5);
+        }
+        
+        .vibrant-card-header {
+            background: linear-gradient(135deg, var(--electric-pink), var(--vibrant-purple), var(--neon-blue));
+            border-bottom: 2px solid rgba(255, 255, 255, 0.2);
+            padding: 1.5rem;
+            text-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
+        }
+        
+        .zodiac-icon-large {
+            font-size: 5rem;
+            text-shadow: 0 0 20px var(--neon-blue),
+                         0 0 30px var(--electric-pink);
+            margin-bottom: 1rem;
+            animation: glow 2s ease-in-out infinite alternate;
+        }
+        
+        @keyframes glow {
+            from {
+                text-shadow: 0 0 10px var(--neon-blue),
+                             0 0 20px var(--electric-pink);
+            }
+            to {
+                text-shadow: 0 0 15px var(--neon-blue),
+                             0 0 30px var(--electric-pink),
+                             0 0 40px var(--hot-pink);
+            }
+        }
+        
+        .vibrant-btn {
+            background: linear-gradient(135deg, var(--electric-pink), var(--hot-pink), var(--vibrant-purple));
+            border: none;
+            border-radius: 50px;
+            padding: 12px 30px;
+            font-weight: 600;
+            color: white;
+            transition: all 0.3s ease;
+            box-shadow: 0 5px 15px rgba(255, 0, 255, 0.4);
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .vibrant-btn::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+            transition: 0.5s;
+        }
+        
+        .vibrant-btn:hover::before {
+            left: 100%;
+        }
+        
+        .vibrant-btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 8px 25px rgba(255, 0, 255, 0.6);
+            color: white;
+        }
+        
+        .vibrant-input, .vibrant-select {
+            background: rgba(42, 0, 82, 0.8);
+            border: 2px solid var(--electric-pink);
+            border-radius: 10px;
+            color: white;
+            padding: 12px 20px;
+            box-shadow: 0 0 10px rgba(255, 0, 255, 0.2);
+        }
+        
+        .vibrant-input:focus, .vibrant-select:focus {
+            background: rgba(42, 0, 82, 0.9);
+            border-color: var(--neon-blue);
+            box-shadow: 0 0 0 0.25rem rgba(0, 255, 255, 0.25);
+            color: white;
+        }
+        
+        .vibrant-select option {
+            background: rgba(42, 0, 82, 0.9);
+            color: white;
+        }
+        
+        .strength-card {
+            border-left: 5px solid var(--bright-teal);
+            box-shadow: 0 5px 15px rgba(0, 255, 204, 0.2);
+        }
+        
+        .weakness-card {
+            border-left: 5px solid var(--hot-pink);
+            box-shadow: 0 5px 15px rgba(255, 20, 147, 0.2);
+        }
+        
+        .love-card {
+            border-left: 5px solid var(--electric-pink);
+            box-shadow: 0 5px 15px rgba(255, 0, 255, 0.2);
+        }
+        
+        .compatibility-badge {
+            background: linear-gradient(135deg, var(--electric-pink), var(--vibrant-purple));
+            color: white;
+            padding: 8px 20px;
+            border-radius: 50px;
+            margin: 5px;
+            display: inline-block;
+            font-weight: 500;
+            box-shadow: 0 4px 10px rgba(138, 43, 226, 0.3);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+        }
+        
+        .floating-elements {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            top: 0;
+            left: 0;
+            z-index: 0;
+            pointer-events: none;
+        }
+        
+        .floating-element {
+            position: absolute;
+            border-radius: 50%;
+            animation: float 15s infinite linear;
+            opacity: 0.7;
+        }
+        
+        @keyframes float {
+            0% {
+                transform: translateY(100vh) rotate(0deg);
+                opacity: 0;
+            }
+            10% {
+                opacity: 0.7;
+            }
+            90% {
+                opacity: 0.7;
+            }
+            100% {
+                transform: translateY(-100px) rotate(360deg);
+                opacity: 0;
+            }
+        }
+        
+        .footer-vibrant {
+            background: rgba(26, 0, 51, 0.9);
+            border-top: 2px solid var(--electric-pink);
+            padding: 2rem 0;
+            margin-top: 4rem;
+            box-shadow: 0 -5px 15px rgba(255, 0, 255, 0.2);
+        }
+        
+        .glow-text {
+            text-shadow: 0 0 10px var(--neon-blue),
+                         0 0 20px var(--electric-pink);
+        }
+        
+        .feature-icon {
+            font-size: 3rem;
+            color: var(--bright-teal);
+            margin-bottom: 1rem;
+            text-shadow: 0 0 10px rgba(0, 255, 204, 0.5);
+        }
+        
+        .pulse {
+            animation: pulse 2s infinite;
+        }
+        
+        @keyframes pulse {
+            0% {
+                box-shadow: 0 0 0 0 rgba(0, 255, 255, 0.4);
+            }
+            70% {
+                box-shadow: 0 0 0 15px rgba(0, 255, 255, 0);
+            }
+            100% {
+                box-shadow: 0 0 0 0 rgba(0, 255, 255, 0);
+            }
+        }
+        
+        .zodiac-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+            gap: 15px;
+            margin-top: 2rem;
+        }
+        
+        .zodiac-mini-card {
+            background: rgba(42, 0, 82, 0.7);
+            border-radius: 15px;
+            padding: 15px;
+            text-align: center;
+            transition: all 0.3s ease;
+            border: 1px solid transparent;
+            cursor: pointer;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+        }
+        
+        .zodiac-mini-card:hover {
+            transform: scale(1.05);
+            border: 1px solid var(--electric-pink);
+            box-shadow: 0 5px 15px rgba(255, 0, 255, 0.3),
+                        0 0 10px rgba(0, 255, 255, 0.3);
+        }
+        
+        .zodiac-mini-icon {
+            font-size: 2.5rem;
+            margin-bottom: 10px;
+            text-shadow: 0 0 10px var(--neon-blue);
+        }
+        
+        .vibrant-modal .modal-content {
+            background: rgba(42, 0, 82, 0.95);
+            backdrop-filter: blur(10px);
+            border: 2px solid;
+            border-image: linear-gradient(45deg, var(--electric-pink), var(--neon-blue)) 1;
+            border-radius: 20px;
+            color: white;
+            box-shadow: 0 0 30px rgba(255, 0, 255, 0.4);
+        }
+        
+        .vibrant-modal .modal-header {
+            border-bottom: 2px solid var(--electric-pink);
+            background: linear-gradient(135deg, var(--electric-pink), var(--vibrant-purple));
+        }
+        
+        .vibrant-modal .btn-close {
+            filter: invert(1);
+        }
+        
+        .gradient-text {
+            background: linear-gradient(45deg, var(--electric-pink), var(--neon-blue), var(--bright-teal));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+        
+        .date-input-group {
+            display: flex;
+            gap: 10px;
+            margin-bottom: 20px;
+        }
+        
+        .date-input {
+            flex: 1;
+        }
+        
+        @media (max-width: 576px) {
+            .date-input-group {
+                flex-direction: column;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Navigation -->
+    <nav class="navbar navbar-expand-lg navbar-dark vibrant-nav fixed-top">
+        <div class="container">
+            <a class="navbar-brand glow-text" href="#">
+                <i class="bi bi-stars me-2"></i>IDG Zodiac Master AI
+            </a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav ms-auto">
+                    <li class="nav-item">
+                        <a class="nav-link active" href="#home">Home</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#" onclick="showAllZodiacs()">All Zodiacs</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section class="hero-section" id="home">
+        <div class="floating-elements" id="floatingElements"></div>
+        <div class="container">
+            <div class="row align-items-center min-vh-100">
+                <div class="col-lg-8 mx-auto text-center hero-content">
+                    <h1 class="display-3 fw-bold mb-4">IDG Zodiac Master <span class="gradient-text">AI</span></h1>
+                    <p class="lead mb-5">Unlock the secrets of the stars with our advanced AI zodiac analysis</p>
+                    
+                    <div class="row justify-content-center">
+                        <div class="col-md-8">
+                            <div class="vibrant-card p-4 pulse">
+                                <h3 class="mb-4">Enter Your Birth Date</h3>
+                                
+                                <div class="date-input-group">
+                                    <div class="date-input">
+                                        <label class="form-label">Day</label>
+                                        <select class="form-select vibrant-select" id="birthDay">
+                                            <option value="">Select Day</option>
+                                            <!-- Days will be populated by JavaScript -->
+                                        </select>
+                                    </div>
+                                    
+                                    <div class="date-input">
+                                        <label class="form-label">Month</label>
+                                        <select class="form-select vibrant-select" id="birthMonth">
+                                            <option value="">Select Month</option>
+                                            <option value="1">January</option>
+                                            <option value="2">February</option>
+                                            <option value="3">March</option>
+                                            <option value="4">April</option>
+                                            <option value="5">May</option>
+                                            <option value="6">June</option>
+                                            <option value="7">July</option>
+                                            <option value="8">August</option>
+                                            <option value="9">September</option>
+                                            <option value="10">October</option>
+                                            <option value="11">November</option>
+                                            <option value="12">December</option>
+                                        </select>
+                                    </div>
+                                </div>
+                                
+                                <div class="d-grid gap-2 d-md-flex justify-content-md-center">
+                                    <button class="btn vibrant-btn me-md-2" onclick="findZodiacSign()">
+                                        <i class="bi bi-stars me-2"></i>Reveal My Zodiac
+                                    </button>
+                                    <button class="btn btn-outline-light" onclick="showAllZodiacs()">
+                                        <i class="bi bi-grid-3x3 me-2"></i>Explore All Signs
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Quick Features -->
+                    <div class="row mt-5">
+                        <div class="col-md-4 mb-4">
+                            <div class="text-center">
+                                <div class="feature-icon">
+                                    <i class="bi bi-gem"></i>
+                                </div>
+                                <h5>AI Personality Analysis</h5>
+                                <p class="small">Discover your strengths and weaknesses with AI</p>
+                            </div>
+                        </div>
+                        <div class="col-md-4 mb-4">
+                            <div class="text-center">
+                                <div class="feature-icon">
+                                    <i class="bi bi-hearts"></i>
+                                </div>
+                                <h5>Love Compatibility</h5>
+                                <p class="small">Find your perfect cosmic matches</p>
+                            </div>
+                        </div>
+                        <div class="col-md-4 mb-4">
+                            <div class="text-center">
+                                <div class="feature-icon">
+                                    <i class="bi bi-graph-up-arrow"></i>
+                                </div>
+                                <h5>Life Guidance</h5>
+                                <p class="small">Get AI-powered insights for your future</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Results Section -->
+    <section class="py-5" id="results">
+        <div class="container">
+            <div id="result"></div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer-vibrant">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-6">
+                    <h4 class="glow-text">IDG Zodiac Master AI</h4>
+                    <p>Unlock your cosmic potential with AI-powered insights.</p>
+                </div>
+                <div class="col-lg-6 text-lg-end">
+                    <p>&copy; 2023 IDG Zodiac Master AI. All rights reserved.</p>
+                    <p>For entertainment purposes only.</p>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <!-- All Zodiacs Modal -->
+    <div class="modal fade vibrant-modal" id="allZodiacsModal" tabindex="-1">
+        <div class="modal-dialog modal-xl">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">Explore All Zodiac Signs</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+                </div>
+                <div class="modal-body">
+                    <div class="zodiac-grid" id="modalZodiacGrid">
+                        <!-- Zodiac mini cards for modal -->
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Bootstrap JS -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+    
+    <script>
+        // Create floating elements
+        function createFloatingElements() {
+            const container = document.getElementById('floatingElements');
+            const elementCount = 30;
+            
+            for (let i = 0; i < elementCount; i++) {
+                const element = document.createElement('div');
+                element.classList.add('floating-element');
+                
+                // Random properties
+                const size = Math.random() * 20 + 5;
+                const left = Math.random() * 100;
+                const animationDuration = Math.random() * 20 + 10;
+                const animationDelay = Math.random() * 5;
+                const colors = ['#FF00FF', '#00FFFF', '#FFD700', '#00FFCC', '#FF1493'];
+                const color = colors[Math.floor(Math.random() * colors.length)];
+                
+                element.style.width = `${size}px`;
+                element.style.height = `${size}px`;
+                element.style.left = `${left}%`;
+                element.style.animationDuration = `${animationDuration}s`;
+                element.style.animationDelay = `${animationDelay}s`;
+                element.style.background = color;
+                element.style.boxShadow = `0 0 10px ${color}`;
+                
+                container.appendChild(element);
+            }
+        }
+
+        // Populate day dropdown
+        function populateDays() {
+            const daySelect = document.getElementById('birthDay');
+            for (let i = 1; i <= 31; i++) {
+                const option = document.createElement('option');
+                option.value = i;
+                option.textContent = i;
+                daySelect.appendChild(option);
+            }
+        }
+
+        // Zodiac data
+        const zodiacData = [
+            { name: "Aries", symbol: "♈", dates: "Mar 21 - Apr 19", color: "#FF6B6B" },
+            { name: "Taurus", symbol: "♉", dates: "Apr 20 - May 20", color: "#4ECDC4" },
+            { name: "Gemini", symbol: "♊", dates: "May 21 - Jun 20", color: "#FFD166" },
+            { name: "Cancer", symbol: "♋", dates: "Jun 21 - Jul 22", color: "#6A0572" },
+            { name: "Leo", symbol: "♌", dates: "Jul 23 - Aug 22", color: "#FF9F1C" },
+            { name: "Virgo", symbol: "♍", dates: "Aug 23 - Sep 22", color: "#06D6A0" },
+            { name: "Libra", symbol: "♎", dates: "Sep 23 - Oct 22", color: "#118AB2" },
+            { name: "Scorpio", symbol: "♏", dates: "Oct 23 - Nov 21", color: "#EF476F" },
+            { name: "Sagittarius", symbol: "♐", dates: "Nov 22 - Dec 21", color: "#7209B7" },
+            { name: "Capricorn", symbol: "♑", dates: "Dec 22 - Jan 19", color: "#3A86FF" },
+            { name: "Aquarius", symbol: "♒", dates: "Jan 20 - Feb 18", color: "#8338EC" },
+            { name: "Pisces", symbol: "♓", dates: "Feb 19 - Mar 20", color: "#3A0CA3" }
+        ];
+
+        // Create zodiac grid
+        function createZodiacGrid(containerId) {
+            const container = document.getElementById(containerId);
+            container.innerHTML = '';
+            
+            zodiacData.forEach(zodiac => {
+                const card = document.createElement('div');
+                card.className = 'zodiac-mini-card';
+                card.innerHTML = `
+                    <div class="zodiac-mini-icon">${zodiac.symbol}</div>
+                    <h5>${zodiac.name}</h5>
+                    <small>${zodiac.dates}</small>
+                `;
+                card.addEventListener('click', () => {
+                    const modal = bootstrap.Modal.getInstance(document.getElementById('allZodiacsModal'));
+                    modal.hide();
+                    displayZodiacResult(zodiac.name);
+                });
+                container.appendChild(card);
+            });
+        }
+
+        // Show all zodiacs in modal
+        function showAllZodiacs() {
+            createZodiacGrid('modalZodiacGrid');
+            const modal = new bootstrap.Modal(document.getElementById('allZodiacsModal'));
+            modal.show();
+        }
+
+        // Find zodiac sign based on birth date
+        function findZodiacSign() {
+            const day = document.getElementById('birthDay').value;
+            const month = document.getElementById('birthMonth').value;
+            const resultDiv = document.getElementById('result');
+            
+            if (!day || !month) {
+                alert("Please select both day and month!");
+                return;
+            }
+            
+            // Show loading animation
+            resultDiv.innerHTML = `
+                <div class="text-center py-5">
+                    <div class="spinner-border" style="color: #FF00FF;" role="status">
+                        <span class="visually-hidden">Loading...</span>
+                    </div>
+                    <p class="mt-3">AI is analyzing your cosmic profile...</p>
+                </div>
+            `;
+            
+            // Scroll to results
+            setTimeout(() => {
+                document.getElementById('results').scrollIntoView({ behavior: 'smooth' });
+            }, 500);
+            
+            // Simulate API call delay
+            setTimeout(() => {
+                // Simple zodiac calculation
+                let zodiacName = "";
+                const dayNum = parseInt(day);
+                const monthNum = parseInt(month);
+                
+                if ((monthNum == 3 && dayNum >= 21) || (monthNum == 4 && dayNum <= 19)) zodiacName = "Aries";
+                else if ((monthNum == 4 && dayNum >= 20) || (monthNum == 5 && dayNum <= 20)) zodiacName = "Taurus";
+                else if ((monthNum == 5 && dayNum >= 21) || (monthNum == 6 && dayNum <= 20)) zodiacName = "Gemini";
+                else if ((monthNum == 6 && dayNum >= 21) || (monthNum == 7 && dayNum <= 22)) zodiacName = "Cancer";
+                else if ((monthNum == 7 && dayNum >= 23) || (monthNum == 8 && dayNum <= 22)) zodiacName = "Leo";
+                else if ((monthNum == 8 && dayNum >= 23) || (monthNum == 9 && dayNum <= 22)) zodiacName = "Virgo";
+                else if ((monthNum == 9 && dayNum >= 23) || (monthNum == 10 && dayNum <= 22)) zodiacName = "Libra";
+                else if ((monthNum == 10 && dayNum >= 23) || (monthNum == 11 && dayNum <= 21)) zodiacName = "Scorpio";
+                else if ((monthNum == 11 && dayNum >= 22) || (monthNum == 12 && dayNum <= 21)) zodiacName = "Sagittarius";
+                else if ((monthNum == 12 && dayNum >= 22) || (monthNum == 1 && dayNum <= 19)) zodiacName = "Capricorn";
+                else if ((monthNum == 1 && dayNum >= 20) || (monthNum == 2 && dayNum <= 18)) zodiacName = "Aquarius";
+                else if ((monthNum == 2 && dayNum >= 19) || (monthNum == 3 && dayNum <= 20)) zodiacName = "Pisces";
+                
+                // Display results
+                displayZodiacResult(zodiacName, day, month);
+            }, 2000);
+        }
+
+        // Display zodiac result
+        function displayZodiacResult(zodiacName, day, month) {
+            const resultDiv = document.getElementById('result');
+            
+            // Get month name
+            const monthNames = [
+                "January", "February", "March", "April", "May", "June",
+                "July", "August", "September", "October", "November", "December"
+            ];
+            const monthName = monthNames[parseInt(month) - 1];
+            
+            // Sample data
+            const zodiacInfo = {
+                name: zodiacName,
+                symbol: zodiacData.find(z => z.name === zodiacName)?.symbol || "♈",
+                dates: zodiacData.find(z => z.name === zodiacName)?.dates || "Unknown",
+                strengths: [
+                    "Natural leadership abilities",
+                    "Creative problem-solving skills",
+                    "Strong intuition and empathy",
+                    "Excellent communication skills",
+                    "Resilient in challenging situations"
+                ],
+                weaknesses: [
+                    "Can be overly critical of yourself",
+                    "Tendency to take on too much",
+                    "Difficulty saying no to others",
+                    "Impatient with slow progress",
+                    "Sometimes overthink decisions"
+                ],
+                caring: [
+                    "You show love through action and protection",
+                    "You are very generous with loved ones",
+                    "You are fiercely loyal to family and friends",
+                    "You will fight for those you care about"
+                ],
+                relationship: [
+                    "You are direct and honest in communication",
+                    "You need independence and freedom",
+                    "You are a passionate and intense partner",
+                    "You get bored with routine quickly"
+                ],
+                love: [
+                    "You value deep emotional connections",
+                    "You're a loyal and committed partner",
+                    "You need intellectual stimulation in relationships",
+                    "You express love through actions more than words",
+                    "You seek a partner who challenges you"
+                ],
+                marriage: [
+                    "You're a supportive and understanding spouse",
+                    "You work hard to maintain harmony at home",
+                    "You value family traditions and create new ones",
+                    "You're financially responsible and plan for the future",
+                    "You balance independence with togetherness"
+                ],
+                partner: "Your ideal partner is someone who is emotionally intelligent, has a good sense of humor, shares your values, and supports your ambitions while maintaining their own identity.",
+                compatibility: ["Libra", "Aquarius", "Sagittarius", "Gemini"]
+            };
+            
+            resultDiv.innerHTML = `
+                <div class="row justify-content-center">
+                    <div class="col-lg-10">
+                        <!-- Zodiac Header -->
+                        <div class="vibrant-card mb-5">
+                            <div class="vibrant-card-header text-center">
+                                <div class="zodiac-icon-large">${zodiacInfo.symbol}</div>
+                                <h1 class="display-4 fw-bold">${zodiacInfo.name}</h1>
+                                <p class="lead mb-0">${zodiacInfo.dates}</p>
+                                <p class="mt-2">Birth Date: ${day} ${monthName}</p>
+                            </div>
+                        </div>
+                        
+                        <!-- Strengths & Weaknesses -->
+                        <div class="row mb-5">
+                            <div class="col-md-6 mb-4">
+                                <div class="vibrant-card strength-card h-100">
+                                    <div class="card-body p-4">
+                                        <h3 class="h4 mb-3"><i class="bi bi-check-circle-fill me-2" style="color: var(--bright-teal);"></i>Your Strengths</h3>
+                                        <ul class="list-unstyled">
+                                            ${zodiacInfo.strengths.map(item => `<li class="mb-2"><i class="bi bi-star-fill me-2" style="color: var(--bright-teal);"></i>${item}</li>`).join('')}
+                                        </ul>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-6 mb-4">
+                                <div class="vibrant-card weakness-card h-100">
+                                    <div class="card-body p-4">
+                                        <h3 class="h4 mb-3"><i class="bi bi-exclamation-triangle-fill me-2" style="color: var(--hot-pink);"></i>Areas for Growth</h3>
+                                        <ul class="list-unstyled">
+                                            ${zodiacInfo.weaknesses.map(item => `<li class="mb-2"><i class="bi bi-arrow-right me-2" style="color: var(--hot-pink);"></i>${item}</li>`).join('')}
+                                        </ul>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <!-- Caring & Relationship -->
+                        <div class="row mb-5">
+                            <div class="col-md-6 mb-4">
+                                <div class="vibrant-card h-100">
+                                    <div class="card-body p-4">
+                                        <h3 class="h4 mb-3"><i class="bi bi-heart-fill me-2" style="color: var(--bright-teal);"></i>Your Caring Style</h3>
+                                        <ul class="list-unstyled">
+                                            ${zodiacInfo.caring.map(item => `<li class="mb-2"><i class="bi bi-heart me-2" style="color: var(--bright-teal);"></i>${item}</li>`).join('')}
+                                        </ul>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-6 mb-4">
+                                <div class="vibrant-card h-100">
+                                    <div class="card-body p-4">
+                                        <h3 class="h4 mb-3"><i class="bi bi-people-fill me-2" style="color: var(--bright-teal);"></i>Relationship Approach</h3>
+                                        <ul class="list-unstyled">
+                                            ${zodiacInfo.relationship.map(item => `<li class="mb-2"><i class="bi bi-arrow-right me-2" style="color: var(--bright-teal);"></i>${item}</li>`).join('')}
+                                        </ul>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <!-- Love & Marriage -->
+                        <div class="vibrant-card love-card mb-5">
+                            <div class="card-body p-4">
+                                <h2 class="h3 mb-4"><i class="bi bi-suit-heart-fill me-2" style="color: var(--electric-pink);"></i>Love & Relationships</h2>
+                                <div class="row">
+                                    <div class="col-lg-6 mb-4">
+                                        <h4 class="h5 mb-3">Your Love Life</h4>
+                                        <ul class="list-unstyled">
+                                            ${zodiacInfo.love.map(item => `<li class="mb-2"><i class="bi bi-heart me-2" style="color: var(--electric-pink);"></i>${item}</li>`).join('')}
+                                        </ul>
+                                    </div>
+                                    <div class="col-lg-6 mb-4">
+                                        <h4 class="h5 mb-3">Marriage Life</h4>
+                                        <ul class="list-unstyled">
+                                            ${zodiacInfo.marriage.map(item => `<li class="mb-2"><i class="bi bi-people-fill me-2" style="color: var(--electric-pink);"></i>${item}</li>`).join('')}
+                                        </ul>
+                                    </div>
+                                </div>
+                                
+                                <div class="mt-4 p-4 rounded" style="background: rgba(255, 0, 255, 0.1); border: 1px solid rgba(255, 0, 255, 0.3);">
+                                    <h4 class="h5 mb-3"><i class="bi bi-person-heart me-2" style="color: var(--electric-pink);"></i>Ideal Partner</h4>
+                                    <p class="mb-0">${zodiacInfo.partner}</p>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <!-- Compatibility -->
+                        <div class="vibrant-card mb-5">
+                            <div class="card-body p-4 text-center">
+                                <h2 class="h3 mb-4"><i class="bi bi-arrow-through-heart me-2" style="color: var(--sunny-yellow);"></i>Best Matches</h2>
+                                <div class="compatibility-list mb-3">
+                                    ${zodiacInfo.compatibility.map(sign => `<span class="compatibility-badge">${sign}</span>`).join('')}
+                                </div>
+                                <p class="text-muted">These signs have the highest compatibility with ${zodiacInfo.name}</p>
+                            </div>
+                        </div>
+                        
+                        <!-- Action Buttons -->
+                        <div class="text-center">
+                            <button class="btn vibrant-btn me-3" onclick="findZodiacSign()">
+                                <i class="bi bi-arrow-repeat me-2"></i>Analyze Another Date
+                            </button>
+                            <button class="btn btn-outline-light" onclick="showAllZodiacs()">
+                                <i class="bi bi-grid-3x3 me-2"></i>Explore All Signs
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            `;
+        }
+
+        // Initialize the app
+        document.addEventListener('DOMContentLoaded', function() {
+            createFloatingElements();
+            populateDays();
+        });
+    </script>
+</body>
+</html>
